@@ -1,10 +1,5 @@
 ﻿using AppFinc.Models;
 using LiteDB;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AppFinc.Repositories
 {
@@ -13,11 +8,9 @@ namespace AppFinc.Repositories
         private readonly LiteDatabase _database;
         private readonly string collectionName = "transactions";
 
-        public TransactionRepository()
+        public TransactionRepository(LiteDatabase database)
         {
-            _database = new LiteDatabase("Filename=C:/users/AppData/database.db;Connection=Shared");
-
-
+            _database = database;
         }
 
         public List<Transaction> GetAll() {

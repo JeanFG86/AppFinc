@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AppFinc.Repositories;
+using LiteDB;
+using Microsoft.Extensions.Logging;
 
 namespace AppFinc;
 
@@ -13,12 +15,25 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+			})
+			.RegisterDatabaseAndRepositories();
 
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
 
 		return builder.Build();
+	}
+
+	public static MauiAppBuilder RegisterDatabaseAndRepositories(this MauiAppBuilder builder)
+	{
+		builder.Services.AddSingleton<LiteDatabase>(
+			options =>
+				{
+					return new LiteDatabase($"Filename={AppSettings.DatabasePath};Connection=Shared");
+				}
+			);
+		builder.Services.AddTransient<ITransactionRepository, TransactionRepository>();
+		return builder;
 	}
 }
