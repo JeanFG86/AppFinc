@@ -8,5 +8,6 @@
             Text="Transaction List"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Button Text="+" Command="{Binding ButtonClickCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

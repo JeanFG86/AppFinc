@@ -1,9 +1,12 @@
+using AppFinc.ViewModels;
+
 namespace AppFinc.Views;
 
 public partial class TransactionList : ContentPage
 {
 	public TransactionList()
 	{
-		InitializeComponent();
+		BindingContext = new TransactionListViewModel();
+        InitializeComponent();
 	}
 }
